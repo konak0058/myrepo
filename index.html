@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Ticket Booking</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#141E30,#243B55);
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:900px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.movies{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.movie-card{
+    background:#fff;
+    color:#333;
+    border-radius:15px;
+    overflow:hidden;
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.movie-card:hover{
+    transform:translateY(-5px);
+}
+
+.movie-card img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+}
+
+.movie-card h3{
+    text-align:center;
+    padding:10px;
+}
+
+.movie-card p{
+    text-align:center;
+    padding-bottom:10px;
+    color:#28a745;
+    font-weight:bold;
+}
+
+.booking{
+    margin-top:30px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+}
+
+select,input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    background:#ff4b2b;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#ff2f00;
+}
+
+#result{
+    margin-top:20px;
+    background:#28a745;
+    padding:15px;
+    border-radius:10px;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎬 Movie Ticket Booking</h1>
+
+    <div class="movies">
+
+        <div class="movie-card">
+            https://picsum.photos/300/400?random=1
+            <h3>Avengers</h3>
+            <p>$15 Per Ticket</p>
+        </div>
+
+        <div class="movie-card">
+            https://picsum.photos/300/400?random=2
+            <h3>Batman</h3>
+            <p>$12 Per Ticket</p>
+        </div>
+
+        <div class="movie-card">
+            https://picsum.photos/300/400?random=3
+            <h3>Spider-Man</h3>
+            <p>$10 Per Ticket</p>
+        </div>
+
+    </div>
+
+    <div class="booking">
+
+        <label>Select Movie</label>
+        <select id="movie">
+            <option value="15">Avengers ($15)</option>
+            <option value="12">Batman ($12)</option>
+            <option value="10">Spider-Man ($10)</option>
+        </select>
+
+        <label>Number of Tickets</label>
+        <input type="number" id="tickets" min="1" value="1">
+
+        <label>Your Name</label>
+        <input type="text" id="customerName" placeholder="Enter your name">
+
+        <button onclick="bookTicket()">Book Ticket</button>
+
+        <div id="result"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+function bookTicket(){
+
+    let movieDropdown = document.getElementById("movie");
+    let movieName =
+        movieDropdown.options[movieDropdown.selectedIndex].text;
+
+    let price = parseInt(movieDropdown.value);
+    let tickets = parseInt(document.getElementById("tickets").value);
+    let customer = document.getElementById("customerName").value;
+
+    let total = price * tickets;
+
+    document.getElementById("result").style.display="block";
+    document.getElementById("result").innerHTML=`
+        <h3>✅ Booking Confirmed</h3>
+        <p><strong>Name:</strong> ${customer}</p>
+        <p><strong>Movie:</strong> ${movieName}</p>
+        <p><strong>Tickets:</strong> ${tickets}</p>
+        <p><strong>Total Amount:</strong> $${total}</p>
+        <p><strong>Booking ID:</strong> MOV${Math.floor(Math.random()*100000)}</p>
+    `;
+}
+
+</script>
+
+</body>
+</html>
